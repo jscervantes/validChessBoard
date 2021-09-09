@@ -2,6 +2,30 @@
 # and returns True or False depending on if the board is valid.
 
 # Function to check if spaces on currentBoard are valid.
+validPieces = []
+for i in ['w', 'b']:
+    validPieces += [str(i) + 'king'] + [str(i) + 'queen'] + [str(i) + 'rook'] + \
+                    [str(i) + 'bishop'] + [str(i) + 'knight'] + [str(i) + 'pawn']
+
+def isBishopValid(board): # Checks if either bishop is in wrong color square
+    blackSquares = []
+    for i in range(1, 9, 2):
+        blackSquares += [str(i) + 'a'] + [str(i) + 'c'] + \
+                        [str(i) + 'e'] + [str(i) + 'h']
+    for i in range(2, 9, 2):
+        blackSquares += [str(i) + 'b'] + [str(i) + 'd'] + \
+                        [str(i) + 'f'] + [str(i) + 'g']
+    whiteSquares = []
+    for i in range(2, 9, 2):
+        whiteSquares += [str(i) + 'a'] + [str(i) + 'c'] + \
+                        [str(i) + 'e'] + [str(i) + 'h']
+    for i in range(1, 9, 2):
+        whiteSquares += [str(i) + 'b'] + [str(i) + 'd'] + \
+                        [str(i) + 'f'] + [str(i) + 'g']
+    bishops = 
+
+
+
 def isValidSpace(board):
     validSpaces = [] # Making a list of valid spaces on chess board.
     for i in range(1, 9):
@@ -13,15 +37,11 @@ def isValidSpace(board):
             return False
 
 def isValidPieces(board):
-    validPieces = []
-    for i in ['w', 'b']:
-        validPieces += [str(i) + 'king'] + [str(i) + 'queen'] + [str(i) + 'rook'] + \
-                        [str(i) + 'bishop'] + [str(i) + 'knight'] + [str(i) + 'pawn']
+    
     for piece in list(board.values()):
         if piece not in validPieces:
             return False
 
-    
 # The titular function.
 def isValidChessBoard(board):
 
@@ -65,9 +85,10 @@ def isValidChessBoard(board):
 
 
 currentBoard = {'1a': 'bking', '6c': 'wqueen', '2g': 'bbishop',
-                '5h':'bqueen', '3e': 'wking', '1b' : 'pawn', '1c' : 'wpawn'}
+                '5h':'bqueen', '3e': 'wking', '1b' : 'wpawn', '1c' : 'wpawn'}
 
-#print(validSpaces)
+
 #print(list(currentBoard.values()))
 isValidChessBoard(currentBoard)
 #print(sum(value == 'wpawn' for value in currentBoard.values()))
+print(isBishopValid(currentBoard))
