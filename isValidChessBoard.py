@@ -22,7 +22,22 @@ def isBishopValid(board): # Checks if either bishop is in wrong color square
     for i in range(1, 9, 2):
         whiteSquares += [str(i) + 'b'] + [str(i) + 'd'] + \
                         [str(i) + 'f'] + [str(i) + 'g']
-    bishops = 
+    wBishopWSquare = 0
+    wBishopBSquare = 0  
+    bBishopWSquare = 0
+    bBishopBSquare = 0                 
+    for k, v in currentBoard.items():
+        if v == 'wbishop' and k in whiteSquares:
+            wBishopWSquare += 1
+        elif v == 'wbishop' and k in blackSquares:
+            wBishopBSquare += 1
+        elif v == 'bbishop' and k in whiteSquares:
+            bBishopWSquare += 1
+        elif v == 'bbishop' and k in blackSquares:
+            bBishopBSquare += 1
+    if wBishopWSquare > 1 or wBishopBSquare > 1 or bBishopWSquare > 1 or bBishopBSquare > 1:
+        return False
+
 
 
 
@@ -36,8 +51,7 @@ def isValidSpace(board):
         if space not in validSpaces:
             return False
 
-def isValidPieces(board):
-    
+def isValidPieces(board):    
     for piece in list(board.values()):
         if piece not in validPieces:
             return False
@@ -45,50 +59,55 @@ def isValidPieces(board):
 # The titular function.
 def isValidChessBoard(board):
 
-    pieces = list(currentBoard.values())
+    pieces = list(board.values())
 
-    if 'bking' and 'wking' not in board.values(): # Making sure boths kings are still on board.
-        print(False)
-    elif len(currentBoard) > 32: # Checking no more than 32 pieces on board
-        print(False) 
-    elif isValidSpace(currentBoard) == False: # Checking spaces are valid
-        print(False)
-    elif isValidPieces(currentBoard) == False: # Checking all pieces are valid
-        print(False)
+    # Making sure boths kings are still on board.
+    if 'bking' not in board.values():
+        print('You are missing a black king.')
+    elif 'wking' not in board.values():
+        print('You are missing a white king.')
+    elif len(board) > 32: # Checking no more than 32 pieces on board
+        print('You have too many pieces!') 
+    elif isValidSpace(board) == False: # Checking spaces are valid
+        print("These space numbers are invalid.")
+    elif isValidPieces(board) == False: # Checking all pieces are valid
+        print("A piece or pieces are invalid.")
     # Cheking count of each piece is correct
     elif sum(value == 'wpawn' for value in currentBoard.values()) > 8:
-        print(False)
+        print('You have too many white pawns.')
     elif sum(value == 'bpawn' for value in currentBoard.values()) > 8:
-        print(False)
+        print('You have too many black pawns.')
     elif sum(value == 'wqueen' for value in currentBoard.values()) > 1:
-        print(False)
+        print('You have an extra white queen.')
     elif sum(value == 'bqueen' for value in currentBoard.values()) > 1:
-        print(False)
+        print('You have an extra black queen.')
     elif sum(value == 'wking' for value in currentBoard.values()) > 1:
-        print(False)
+        print('You have an extra white king.')
     elif sum(value == 'bking' for value in currentBoard.values()) > 1:
-        print(False)
+        print('You have an extra black king.')
     elif sum(value == 'wrook' for value in currentBoard.values()) > 2:
-        print(False)
+        print('You have too many white rooks.')
     elif sum(value == 'brook' for value in currentBoard.values()) > 2:
-        print(False)
+        print('You have too many black rooks.')
     elif sum(value == 'wbishop' for value in currentBoard.values()) > 2:
-        print(False)
+        print('You have too many white bishops.')
     elif sum(value == 'bbishop' for value in currentBoard.values()) > 2:
-        print(False)
+        print('You have too many black bishops.')
     elif sum(value == 'wknight' for value in currentBoard.values()) > 2:
-        print(False)
+        print('You have too many white knights.')
     elif sum(value == 'bknight' for value in currentBoard.values()) > 2:
-        print(False)
+        print('You have too many black knights.')
+    # Running bishop check
+    elif isBishopValid(board) == False:
+        print('Bishops in invalid spaces.')
     else:
         print(True)
 
 
 currentBoard = {'1a': 'bking', '6c': 'wqueen', '2g': 'bbishop',
-                '5h':'bqueen', '3e': 'wking', '1b' : 'wpawn', '1c' : 'wpawn'}
-
+                '5h':'bqueen', '3e': 'wking', '1b' : 'wpawn',
+                 '1c' : 'wpawn', '5b' : 'bbishop', '8c' : 'wbishop',
+                 '8e' : 'wbishop'}
 
 #print(list(currentBoard.values()))
 isValidChessBoard(currentBoard)
-#print(sum(value == 'wpawn' for value in currentBoard.values()))
-print(isBishopValid(currentBoard))
