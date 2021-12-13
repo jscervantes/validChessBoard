@@ -1,7 +1,6 @@
 # isValidChessBoard() is a program written in Python3 that takes a dicitonary argument
 # and returns True or False depending on if the board is valid.
 
-#TODO Write unit tests for each function
 
 ################ Checker Functions ##################
 
