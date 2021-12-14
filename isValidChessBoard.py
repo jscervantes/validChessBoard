@@ -10,34 +10,36 @@ def isBishopValid(board):
     answer = ""
 
     blackSquares = []
-    for i in range(1, 9, 2):
-        blackSquares += [str(i) + 'a'] + [str(i) + 'c'] + \
-                        [str(i) + 'e'] + [str(i) + 'h']
-    for i in range(2, 9, 2):
-        blackSquares += [str(i) + 'b'] + [str(i) + 'd'] + \
-                        [str(i) + 'f'] + [str(i) + 'g']
+    for j in 'aceg':
+        for i in range(1, 9, 2):
+            blackSquares.append(j + str(i))
+    for j in 'bdfh':
+        for i in range(2, 9, 2):
+            blackSquares.append(j + str(i))
+
     whiteSquares = []
-    for i in range(2, 9, 2):
-        whiteSquares += [str(i) + 'a'] + [str(i) + 'c'] + \
-                        [str(i) + 'e'] + [str(i) + 'h']
-    for i in range(1, 9, 2):
-        whiteSquares += [str(i) + 'b'] + [str(i) + 'd'] + \
-                        [str(i) + 'f'] + [str(i) + 'g']
-    wBishopWSquare = 0
-    wBishopBSquare = 0  
-    bBishopWSquare = 0
-    bBishopBSquare = 0                 
+    for j in 'aceg':
+        for i in range(2, 9, 2):
+            whiteSquares.append(j + str(i))
+    for j in 'bdfh':
+        for i in range(1, 9, 2):
+            whiteSquares.append(j + str(i))
+
+    wBishop_WSquare = 0
+    wBishop_BSquare = 0  
+    bBishop_WSquare = 0
+    bBishop_BSquare = 0                 
     for k, v in board:
         if v == 'wbishop' and k in whiteSquares:
-            wBishopWSquare += 1
+            wBishop_WSquare += 1
         elif v == 'wbishop' and k in blackSquares:
-            wBishopBSquare += 1
+            wBishop_BSquare += 1
         elif v == 'bbishop' and k in whiteSquares:
-            bBishopWSquare += 1
+            bBishop_WSquare += 1
         elif v == 'bbishop' and k in blackSquares:
-            bBishopBSquare += 1
+            bBishop_BSquare += 1
 
-    if wBishopWSquare > 1 or wBishopBSquare > 1 or bBishopWSquare > 1 or bBishopBSquare > 1:
+    if wBishop_WSquare > 1 or wBishop_BSquare > 1 or bBishop_WSquare > 1 or bBishop_BSquare > 1:
         answer = "Bishop(s) are in invalid space(s)."
     else:
         answer = "Bishops are in valid spaces."
@@ -49,10 +51,9 @@ def isValidSpace(board):
     """Checks if spaces on board are real."""
     validSpaces = []
     answer = ""
-    for i in range(1, 9):
-        validSpaces += [str(i) + 'a'] + [str(i) + 'b'] + [str(i) + 'c'] + \
-                        [str(i) + 'd'] + [str(i) + 'e'] + [str(i) + 'f'] + \
-                        [str(i) + 'g'] + [str(i) + 'h']
+    for j in 'abcdefgh':
+        for i in range(1, 9):
+            validSpaces.append(j + str(i))
     for space in list(board.keys()):
         if space not in validSpaces:
             answer = "The spaces given are invalid."
